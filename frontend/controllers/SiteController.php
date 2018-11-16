@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace frontend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
@@ -16,7 +16,8 @@ class SiteController extends Controller
 {
     
 
-    public function actionCarrito() {
+    public function actionCarrito() 
+    {
         $table = new Mariscos;
         $model = $table->find()->all();
         return $this->render("carrito");
