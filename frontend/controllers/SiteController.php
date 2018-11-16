@@ -11,16 +11,38 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\FormRegister;
 use app\models\Users;
+use app\models\Alimentos;
+use app\models\FormSearch;
+use app\models\Pedidos;
+use yii\helpers\Html;
 
 class SiteController extends Controller
 {
     
 
-    public function actionCarrito() 
+    public function actionCarta() 
     {
-        $table = new Mariscos;
-        $model = $table->find()->all();
-        return $this->render("carrito");
+        $table = new Alimentos;
+        $model = $table->find()->all(); 
+        $form = new FormSearch;
+        $search = null;
+        if($form->load(Yii::$app->request->get()))
+        {
+            if($form->validate())
+            {
+                $search = Html::encode($form->q);
+                $query = "SELECT * FROM alimento WHERE id_alimento like '%$search%' OR ";
+                $query .= "nom_a LIKE '%$search%' OR descripcion LIKE '%$search%'";
+                $model = $table->findBySql($query)->all();
+            }
+            else{
+                $form->getErrors();
+            }
+        }
+        return $this->render("carta", ["model" => $model, "form" =>$form, "search" => $search]); 
+    }
+    
+    public function actionAñadirpedido(){
         
     }
     private function randKey($str='', $long=0)

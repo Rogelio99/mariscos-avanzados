@@ -13,10 +13,11 @@ class Alimentos extends ActiveRecord{
     
     public static function tableName()
     {
-        return 'alimento';
+        return 'pedido';
     }
     
 }
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
